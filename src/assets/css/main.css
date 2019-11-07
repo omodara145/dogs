@@ -59,12 +59,14 @@ a {
   padding: 30px 50px;
 }
 
-.dg-nav a {
+.dg-nav .dg-logo {
+  width: 100px;
+}
+
+.dg-logo .image-slot {
   color: #FF9D00;
   font-size: 2rem;
-  letter-spacing: 1px;
-  font-family: "Calibre", sans-serif;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .dg-header--content {
@@ -73,15 +75,18 @@ a {
 
 .dg-header--content h1 {
   color: #fff;
-  text-align: center;
   font-size: 3rem;
+  margin-bottom: 15px;
 }
 
-.dg-header--search__input .el-input {
+.dg-header--search__input .el-input__inner {
   width: 100%;
-  height: 54px;
+  height: 50px;
 }
 
+.dg-header--search__input .el-input__suffix {
+  color: #30443C;
+}
 .dg-header--content p {
   font-size: 0.9rem;
   color: #ebeef5;
@@ -90,4 +95,68 @@ a {
 .dg-header--content p span {
   font-weight: 500;
   color: #fff;
+}
+
+.dg-body {
+  background: #fff;
+  padding: 30px 60px;
+}
+
+.dg-body h3 {
+  font-weight: 500;
+}
+
+.dg-masonry--container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dg-masonry--container > div {
+  padding: 0 10px;
+}
+
+.dg-image {
+  height: 300px;
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.dg-image a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+
+.dg-image .overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 15px 20px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  box-sizing: border-box;
+  margin-bottom: 0;
+  width: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  background: rgba(0,0,0,0.4);
+}
+
+.dg-image:hover .overlay {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.dg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

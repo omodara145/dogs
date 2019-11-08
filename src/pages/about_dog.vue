@@ -1,5 +1,5 @@
 <template>
-  <div class="dg-about">
+  <div class="dg-about" v-loading="loading" element-loading-background="rgb(255,255,255)">
     <div class="dg-logo--two">
       <router-link to="/">
         <el-image :src="logo" class="dg-logo">
@@ -47,6 +47,7 @@ export default {
   name: "AboutDog",
   data() {
     return {
+      loading: false,
       logo: "./dogs-two.svg",
       dogName: this.$route.params.dogName,
       dogBreed: ["./dog1.jpg", "./dog2.jpg", "./dog3.jpg", "./dog2.jpg"]
@@ -57,6 +58,11 @@ export default {
       //
     }
   },
-  created() {}
+  created() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 2500);
+  }
 };
 </script>

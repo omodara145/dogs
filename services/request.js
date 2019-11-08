@@ -9,7 +9,11 @@ export default {
     return apiCall.get("breeds/list/all");
   },
 
-  getDogImages() {
+  getAllBreedsImages() {
     return apiCall.get("/breeds/image/random/50");
+  },
+
+  getBreedImages(breed) {
+    return apiCall.get(`/breed/${breed}/images/random/50`);
   }
 };

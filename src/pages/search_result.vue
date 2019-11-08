@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div class="dg-header" ref="header">
-      <el-image
-        :src="headerImage"
-        fit="cover"
-        class="dg-header--image"
-      ></el-image>
+    <div class="dg-header search-result" ref="header">
       <div class="dg-nav">
         <router-link to="/">
           <el-image src="../dogs.svg" class="dg-logo">
@@ -14,13 +9,10 @@
             </div>
           </el-image>
         </router-link>
-      </div>
-      <div class="dg-header--content">
-        <h1>Everything about dogs</h1>
         <el-input
           placeholder="Search for dogs by breed"
-          v-model="dogBreed"
-          class="dg-header--search__input"
+          v-model="search"
+          class="search-result--input"
           @keyup.enter.native="fetchByBreed"
         >
           <el-button
@@ -29,15 +21,11 @@
             @click="fetchByBreed"
           ></el-button>
         </el-input>
-        <p>
-          <span>Suggested:</span>
-          affenpinscher, african, bulldog, germanshepherd
-        </p>
       </div>
     </div>
-    <div class="dg-body">
+    <div class="dg-body" v-loading="loading">
       <h3>
-        Featured Dogs Images
+        Search results for <strong>{{ dogBreed }}</strong>
       </h3>
       <div
         v-lazy-container="{ selector: 'img' }"
@@ -48,9 +36,9 @@
         <el-col :span="8" v-for="(dog, index) in dogsTest" :key="index">
           <div class="dg-image">
             <router-link
-              :to="{ name: 'about', params: { dogName: breedName(dog) } }"
+              :to="{ name: 'about', params: { dogName: 'dogName' } }"
             ></router-link>
-            <p class="overlay">{{ breedName(dog) }}</p>
+            <p class="overlay">dogName</p>
             <img :data-src="dog" />
           </div>
         </el-col>
@@ -66,11 +54,12 @@
 import request from "../../services/request.js";
 
 export default {
-  name: "Home",
+  name: "SearchResult",
   data() {
     return {
-      headerImage: "./dog3.jpg",
-      dogBreed: "",
+      loading: false,
+      search: "",
+      dogBreed: this.$route.params.dogName,
       dogs: [],
       dogsTest: [
         "./dog1.jpg",
@@ -87,10 +76,11 @@ export default {
     };
   },
   methods: {
-    fetchImages() {
+    fetchImages() {},
+    fetchByBreed() {
       this.fetchingImages = true;
       request
-        .getAllBreedsImages()
+        .getBreedImages(this.dogBreed.toLowerCase())
         .then(response => {
           this.dogs = response.data.message;
           setTimeout(() => {
@@ -98,26 +88,16 @@ export default {
           }, 1500);
         })
         .catch(() => {
-          this.$message.error("Unable to load images");
+          //
         });
-    },
-    fetchByBreed() {
-      this.$router
-        .push({
-          name: "search_result",
-          params: {
-            dogName: this.dogBreed.toLowerCase()
-          }
-        })
-        .then(() => {
-          this.dogBreed = "";
-        });
-    },
-    breedName(url) {
-      return url.split("/").slice(-2)[0];
     }
+    // breedName(url) {
+    //   return url.split("/").slice(-2)[0];
+    // }
   },
   created() {
+    this.loading = true;
+    this.search = this.$route.params.dogName;
     //this.fetchImages();
   }
 };

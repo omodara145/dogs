@@ -59,7 +59,7 @@ a {
   padding: 30px 50px;
 }
 
-.dg-nav .dg-logo {
+.dg-logo {
   width: 100px;
 }
 
@@ -159,4 +159,84 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.dg-about {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.dg-about > div {
+  min-height: 100%;
+}
+
+.dg-logo--two {
+  background: #fff;
+  width: 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.go-back {
+  height: 40px;
+  width: 40px;
+  border: 1px solid #30443C;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #30443C;
+  transition: background 0.2s ease-out;
+  cursor: pointer;
+}
+
+.go-back:hover {
+  background: #FF9D00;
+  border: 1px solid #FF9D00;
+  color: #fff;
+  transition: all 0.2s ease-in;
+}
+
+
+.dg-about--dog {
+  background: #faf8fc;
+  width: 88%;
+}
+
+.dg-about--dog__title {
+  height: 400px;
+  width: 100%;
+  display: flex;
+}
+
+.dg-about--dog__title .dg-about--dog__image {
+  height: 100%;
+  width: 60%;
+}
+
+.dg-about--dog__title .dg-about--dog__image .el-image {
+  height: 100%;
+}
+
+.dg-about--dog__title .dg-about--dog__name {
+  height: 100%;
+  width: 40%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dg-about--dog__content {
+  padding: 10px 20px;
+}
+.dg-about--dog__title .dg-about--dog__name h2 {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-align: center;
 }

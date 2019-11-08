@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.458 62">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff9d00;
+      }
+
+      .cls-2 {
+        font-size: 36px;
+        font-family: Byby;
+      }
+    </style>
+  </defs>
+  <g id="dogs" transform="translate(-571 -347)">
+    <g id="animal-prints" transform="translate(623.813 338.834)">
+      <path id="Path_1" data-name="Path 1" class="cls-1" d="M27.7,107c1.4,0,2.546-1.533,2.546-3.417s-1.142-3.417-2.546-3.417-2.546,1.533-2.546,3.417S26.3,107,27.7,107Z" transform="translate(-21.423 -78.353)"/>
+      <path id="Path_2" data-name="Path 2" class="cls-1" d="M68.616,107c1.4,0,2.546-1.533,2.546-3.417s-1.143-3.417-2.546-3.417-2.546,1.533-2.546,3.417S67.212,107,68.616,107Z" transform="translate(-56.27 -78.353)"/>
+      <path id="Path_3" data-name="Path 3" class="cls-1" d="M100.634,134.577c-1.1-.217-2.194.757-2.482,2.22s.351,2.776,1.456,2.993,2.194-.757,2.482-2.218S101.737,134.794,100.634,134.577Z" transform="translate(-83.534 -107.634)"/>
+      <path id="Path_4" data-name="Path 4" class="cls-1" d="M4.006,136.8c-.288-1.463-1.377-2.437-2.482-2.22S-.22,136.109.069,137.572s1.378,2.435,2.482,2.218S4.293,138.258,4.006,136.8Z" transform="translate(0 -107.634)"/>
+      <path id="Path_5" data-name="Path 5" class="cls-1" d="M31.1,156.291a3.894,3.894,0,0,0-7.687,0,3.893,3.893,0,1,0,3.844,6.716,3.893,3.893,0,1,0,3.843-6.716Z" transform="translate(-17.95 -123.368)"/>
+      <path id="Path_6" data-name="Path 6" class="cls-1" d="M135.7,15c1.4,0,2.546-1.533,2.546-3.417S137.1,8.166,135.7,8.166s-2.546,1.533-2.546,3.417S134.3,15,135.7,15Z" transform="translate(-113.403)"/>
+      <path id="Path_7" data-name="Path 7" class="cls-1" d="M176.616,15c1.4,0,2.546-1.533,2.546-3.417s-1.143-3.417-2.546-3.417S174.07,9.7,174.07,11.583,175.212,15,176.616,15Z" transform="translate(-148.249)"/>
+      <path id="Path_8" data-name="Path 8" class="cls-1" d="M208.634,42.577c-1.1-.217-2.194.757-2.482,2.22s.351,2.776,1.456,2.993,2.194-.757,2.482-2.218S209.737,42.794,208.634,42.577Z" transform="translate(-175.514 -29.281)"/>
+      <path id="Path_9" data-name="Path 9" class="cls-1" d="M110.55,47.791c1.1-.217,1.743-1.532,1.456-2.993s-1.377-2.437-2.482-2.22-1.743,1.532-1.455,2.995S109.447,48.008,110.55,47.791Z" transform="translate(-91.98 -29.282)"/>
+      <path id="Path_10" data-name="Path 10" class="cls-1" d="M139.1,64.291a3.894,3.894,0,0,0-7.687,0,3.893,3.893,0,1,0,3.844,6.716,3.893,3.893,0,1,0,3.843-6.716Z" transform="translate(-109.93 -45.015)"/>
+    </g>
+    <text id="dogs-2" data-name="dogs" class="cls-2" transform="translate(572 387)"><tspan x="0" y="0">dogs</tspan></text>
+  </g>
+</svg>

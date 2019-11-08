@@ -35,10 +35,10 @@
         Featured Dogs Images
       </h3>
       <div v-lazy-container="{ selector: 'img' }" class="dg-masonry--container">
-        <el-col :span="8" v-for="(dog, index) in dogs" :key="index">
+        <el-col :span="8" v-for="(dog, index) in dogsTest" :key="index">
           <div class="dg-image">
-            <router-link to="/about"></router-link>
-            <p class="overlay">Dog Name</p>
+            <router-link :to="{ name: 'about', params: { dogName: 'dogName' }}"></router-link>
+            <p class="overlay">dogName</p>
             <img :data-src="dog" />
           </div>
         </el-col>
@@ -58,7 +58,17 @@ export default {
       headerImage: "./dog3.jpg",
       dogBreed: "",
       dogs: [],
-      dogsTest: [],
+      dogsTest: [
+        "./dog1.jpg",
+        "./dog2.jpg",
+        "./dog3.jpg",
+        "./dog1.jpg",
+        "./dog2.jpg",
+        "./dog3.jpg",
+        "./dog1.jpg",
+        "./dog2.jpg",
+        "./dog3.jpg"
+      ],
       fetchingImages: false
     };
   },

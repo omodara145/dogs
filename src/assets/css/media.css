@@ -5,6 +5,29 @@
   .dg-header--content {
     width: 70%;
   }
+  .dg-about {
+    flex-direction: column;
+  }
+  .dg-logo--two {
+    flex-direction: row;
+    width: 100%;
+    padding: 20px 40px;
+    box-sizing: border-box;
+  }
+  .dg-about--dog {
+    width: 100%;
+  }
+  .dg-about--dog__title {
+    flex-direction: column;
+    height: auto;
+  }
+  .dg-about--dog__title .dg-about--dog__image .el-carousel__container {
+    height: 500px !important;
+  }
+  .dg-about--dog__title .dg-about--dog__image,
+  .dg-about--dog__title .dg-about--dog__name {
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 768px) {}
@@ -22,5 +45,8 @@
   }
   .dg-header--content {
     width: 100%;
+  }
+  .dg-about--dog__title .dg-about--dog__image .el-carousel__container {
+    height: 300px !important;
   }
 }

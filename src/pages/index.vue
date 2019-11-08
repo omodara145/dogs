@@ -17,18 +17,21 @@
       </div>
       <div class="dg-header--content">
         <h1>Everything about dogs</h1>
-        <el-input
-          placeholder="Search for dogs by breed"
-          v-model="dogBreed"
-          class="dg-header--search__input"
-          @keyup.enter.native="fetchByBreed"
-        >
+        <div>
+          <el-select v-model="value" filterable placeholder="Select">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
           <el-button
-            slot="append"
             icon="el-icon-search"
             @click="fetchByBreed"
+            type="primary"
           ></el-button>
-        </el-input>
+        </div>
         <p>
           <span>Suggested:</span>
           affenpinscher, african, bulldog, germanshepherd
@@ -45,15 +48,27 @@
         v-loading="fetchingImages"
         element-loading-background="rgb(255,255,255)"
       >
-        <el-col :span="8" v-for="(dog, index) in dogsTest" :key="index">
+        <el-col :span="8" v-for="(dog, index) in allDogs" :key="index">
           <div class="dg-image">
             <router-link
-              :to="{ name: 'about', params: { dogName: breedName(dog) } }"
+              :to="{
+                name: 'about',
+                params: { dogName: dog.split('/').slice(-2)[0] }
+              }"
             ></router-link>
-            <p class="overlay">{{ breedName(dog) }}</p>
+            <p class="overlay">{{ dog.split("/").slice(-2)[0] }}</p>
             <img :data-src="dog" />
           </div>
         </el-col>
+      </div>
+      <div class="show-more" v-if="dogStore !== 0">
+        <el-button
+          type="primary"
+          @click="fetchMoreImages"
+          v-loading="showingMore"
+          element-loading-background="rgb(255,255,255)"
+          >Show more</el-button
+        >
       </div>
     </div>
     <div class="back-to-top">
@@ -70,55 +85,68 @@ export default {
   data() {
     return {
       headerImage: "./dog3.jpg",
+      dogBreeds: [],
       dogBreed: "",
-      dogs: [],
-      dogsTest: [
-        "./dog1.jpg",
-        "./dog2.jpg",
-        "./dog3.jpg",
-        "./dog1.jpg",
-        "./dog2.jpg",
-        "./dog3.jpg",
-        "./dog1.jpg",
-        "./dog2.jpg",
-        "./dog3.jpg"
-      ],
-      fetchingImages: false
-    };
+      fetchingImages: false,
+      showingMore: false,
+      dogStore: this.$store.getters.dogs.length
+    }
+  },
+  computed: {
+    allDogs() {
+      return this.$store.getters.dogs;
+    }
   },
   methods: {
-    fetchImages() {
-      this.fetchingImages = true;
+    fetchAllBreeds() {
       request
-        .getAllBreedsImages()
+        .getAllBreeds()
         .then(response => {
-          this.dogs = response.data.message;
-          setTimeout(() => {
-            this.fetchingImages = false;
-          }, 1500);
+          const data = response.data.message;
+          for (let i = 0; i < data.length; i += 1) {
+            console.log(Object.keys(data)[i])
+            this.dogBreeds.append(Object.keys(data)[i]);
+          }
+          console.log(response.data.message);
         })
-        .catch(() => {
-          this.$message.error("Unable to load images");
-        });
+        .catch();
+    },
+    fetchImages() {
+      if (this.dogStore === 0) {
+        this.$store
+          .dispatch("setDogs")
+          .then(() => {
+            this.fetchMoreImages();
+          })
+          .catch(() => {
+            this.$message.error("Unable to load images.");
+          });
+      }
+    },
+    fetchMoreImages() {
+      this.showingMore = true;
+      this.$store.dispatch("setDogs").then(() => {
+        setTimeout(() => {
+          this.showingMore = false;
+        }, 1500);
+      });
     },
     fetchByBreed() {
       this.$router
         .push({
           name: "search_result",
           params: {
-            dogName: this.dogBreed.toLowerCase()
+            dogName: this.dogBreed
           }
         })
         .then(() => {
           this.dogBreed = "";
         });
-    },
-    breedName(url) {
-      return url.split("/").slice(-2)[0];
     }
   },
   created() {
-    //this.fetchImages();
+    this.fetchAllBreeds();
+    this.fetchImages();
   }
 };
 </script>

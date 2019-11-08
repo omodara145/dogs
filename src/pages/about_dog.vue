@@ -31,17 +31,15 @@
       </div>
       <div class="dg-about--dog__content">
         <h3>About</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-          fugiat nulla pariatur</p>
+        <p>{{ aboutBreed }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import request from "../../services/request.js";
+import request from "../../services/request.js";
+import about from "../../services/about.js";
 
 export default {
   name: "AboutDog",
@@ -50,19 +48,36 @@ export default {
       loading: false,
       logo: "./dogs-two.svg",
       dogName: this.$route.params.dogName,
-      dogBreed: ["./dog1.jpg", "./dog2.jpg", "./dog3.jpg", "./dog2.jpg"]
+      dogBreed: [],
+      aboutBreed: ""
     };
   },
   methods: {
     goBack() {
       //
+    },
+    fetchBreedImages() {
+      this.loading = true;
+      request
+        .getBreedImages(this.dogName)
+        .then(response => {
+          this.dogBreed = response.data.message;
+          this.fetchInfo();
+        })
+        .catch();
+    },
+    fetchInfo() {
+      about
+        .getInfo(this.dogName)
+        .then(response => {
+          this.aboutBreed = response.data[2][0];
+          this.loading = false;
+        })
+        .catch();
     }
   },
   created() {
-    this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-    }, 2500);
+    this.fetchBreedImages();
   }
 };
 </script>

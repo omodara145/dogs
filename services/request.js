@@ -14,6 +14,11 @@ export default {
   },
 
   getBreedImages(breed) {
-    return apiCall.get(`/breed/${breed}/images/random/50`);
+    if (breed.includes("-")) {
+      //breed.replace("-", "/");
+      //return apiCall.get(`/breed/${breed.replace("-", "/")}/images/random/4`);
+    } else {
+      return apiCall.get(`/breed/${breed}/images/random/4`);
+    }
   }
 };

@@ -80,7 +80,7 @@ export default {
     fetchByBreed() {
       this.fetchingImages = true;
       request
-        .getBreedImages(this.dogBreed.toLowerCase())
+        .getBreedImages(this.dogBreed)
         .then(response => {
           this.dogs = response.data.message;
           setTimeout(() => {
@@ -91,13 +91,10 @@ export default {
           //
         });
     }
-    // breedName(url) {
-    //   return url.split("/").slice(-2)[0];
-    // }
   },
   created() {
     this.loading = true;
-    this.search = this.$route.params.dogName;
+    //this.search = this.$route.params.dogName;
     //this.fetchImages();
   }
 };

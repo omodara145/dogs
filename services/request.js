@@ -15,8 +15,8 @@ export default {
 
   getFourBreedImages(breed) {
     if (breed.includes("-")) {
-      breed.replace("-", "/");
-      return apiCall.get(`/breed/${breed}/images/random/4`);
+      // breed.replace("-", "/");
+      // return apiCall.get(`/breed/${breed}/images/random/4`);
     } else {
       return apiCall.get(`/breed/${breed}/images/random/4`);
     }

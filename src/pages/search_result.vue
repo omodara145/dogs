@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="loading" element-loading-background="rgb(255,255,255)">
     <div class="dg-header search-result" ref="header">
       <div class="dg-nav">
         <router-link to="/">
@@ -9,36 +9,38 @@
             </div>
           </el-image>
         </router-link>
-        <el-input
-          placeholder="Search for dogs by breed"
-          v-model="search"
-          class="search-result--input"
-          @keyup.enter.native="fetchByBreed"
-        >
+        <div class="search">
+          <el-select v-model="search" filterable placeholder="Search for dog by breed">
+            <el-option
+              v-for="(dog, index) in allBreeds"
+              :key="index"
+              :label="dog"
+              :value="dog"
+            >
+            </el-option>
+          </el-select>
           <el-button
-            slot="append"
             icon="el-icon-search"
-            @click="fetchByBreed"
+            @click="fetchByBreed(search)"
+            type="primary"
           ></el-button>
-        </el-input>
+        </div>
       </div>
     </div>
-    <div class="dg-body" v-loading="loading">
+    <div class="dg-body">
       <h3>
-        Search results for <strong>{{ dogBreed }}</strong>
+        Search results for <strong>{{ this.$route.params.dogName }}</strong>
       </h3>
       <div
         v-lazy-container="{ selector: 'img' }"
         class="dg-masonry--container"
-        v-loading="fetchingImages"
-        element-loading-background="rgb(255,255,255)"
       >
-        <el-col :span="8" v-for="(dog, index) in dogsTest" :key="index">
+        <el-col :xs="24" :sm="12" :md="8" v-for="(dog, index) in dogs" :key="index">
           <div class="dg-image">
             <router-link
-              :to="{ name: 'about', params: { dogName: 'dogName' } }"
+              :to="{ name: 'about', params: { dogName: dog.split('/').slice(-2)[0] } }"
             ></router-link>
-            <p class="overlay">dogName</p>
+            <p class="overlay">{{ dog.split('/').slice(-2)[0] }}</p>
             <img :data-src="dog" />
           </div>
         </el-col>
@@ -59,43 +61,33 @@ export default {
     return {
       loading: false,
       search: "",
-      dogBreed: this.$route.params.dogName,
-      dogs: [],
-      dogsTest: [
-        "./dog1.jpg",
-        "./dog2.jpg",
-        "./dog3.jpg",
-        "./dog1.jpg",
-        "./dog2.jpg",
-        "./dog3.jpg",
-        "./dog1.jpg",
-        "./dog2.jpg",
-        "./dog3.jpg"
-      ],
-      fetchingImages: false
+      dogs: []
     };
   },
+  computed: {
+    allBreeds() {
+      return this.$store.getters.allBreeds;
+    }
+  },
   methods: {
-    fetchImages() {},
-    fetchByBreed() {
-      this.fetchingImages = true;
+    fetchByBreed(breed) {
+      this.loading = true;
+      this.$route.params.dogName = breed;
       request
-        .getBreedImages(this.dogBreed)
+        .getBreedImages(breed)
         .then(response => {
           this.dogs = response.data.message;
           setTimeout(() => {
-            this.fetchingImages = false;
-          }, 1500);
+            this.loading = false;
+          }, 2500);
         })
         .catch(() => {
-          //
+          this.$message.error("Unable to load images");
         });
     }
   },
   created() {
-    this.loading = true;
-    //this.search = this.$route.params.dogName;
-    //this.fetchImages();
+    this.fetchByBreed(this.$route.params.dogName);
   }
 };
 </script>

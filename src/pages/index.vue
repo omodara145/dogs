@@ -17,13 +17,14 @@
       </div>
       <div class="dg-header--content">
         <h1>Everything about dogs</h1>
-        <div>
-          <el-select v-model="value" filterable placeholder="Select">
+        <div class="search">
+          <el-select v-model="dogBreed" filterable placeholder="Search for dog by breed">
             <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+              v-for="(dog, index) in allBreeds"
+              :key="index"
+              :label="dog"
+              :value="dog"
+            >
             </el-option>
           </el-select>
           <el-button
@@ -48,7 +49,7 @@
         v-loading="fetchingImages"
         element-loading-background="rgb(255,255,255)"
       >
-        <el-col :span="8" v-for="(dog, index) in allDogs" :key="index">
+        <el-col :xs="24" :sm="12" :md="8" v-for="(dog, index) in allDogs" :key="index">
           <div class="dg-image">
             <router-link
               :to="{
@@ -78,38 +79,30 @@
 </template>
 
 <script>
-import request from "../../services/request.js";
-
 export default {
   name: "Home",
   data() {
     return {
       headerImage: "./dog3.jpg",
-      dogBreeds: [],
       dogBreed: "",
       fetchingImages: false,
       showingMore: false,
       dogStore: this.$store.getters.dogs.length
-    }
+    };
   },
   computed: {
     allDogs() {
       return this.$store.getters.dogs;
+    },
+    allBreeds() {
+      return this.$store.getters.allBreeds;
     }
   },
   methods: {
     fetchAllBreeds() {
-      request
-        .getAllBreeds()
-        .then(response => {
-          const data = response.data.message;
-          for (let i = 0; i < data.length; i += 1) {
-            console.log(Object.keys(data)[i])
-            this.dogBreeds.append(Object.keys(data)[i]);
-          }
-          console.log(response.data.message);
-        })
-        .catch();
+      this.$store
+        .dispatch("setAllBreeds")
+        .then().catch();
     },
     fetchImages() {
       if (this.dogStore === 0) {

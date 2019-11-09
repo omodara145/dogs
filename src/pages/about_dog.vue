@@ -54,12 +54,12 @@ export default {
   },
   methods: {
     goBack() {
-      //
+      this.$router.push({ name: "home" });
     },
     fetchBreedImages() {
       this.loading = true;
       request
-        .getBreedImages(this.dogName)
+        .getFourBreedImages(this.dogName)
         .then(response => {
           this.dogBreed = response.data.message;
           this.fetchInfo();
@@ -77,7 +77,11 @@ export default {
     }
   },
   created() {
-    this.fetchBreedImages();
+    if (this.$route.params.dogName) {
+      this.fetchBreedImages();
+    } else {
+      this.$router.push({ name: "home" });
+    }
   }
 };
 </script>

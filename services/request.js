@@ -13,12 +13,16 @@ export default {
     return apiCall.get("/breeds/image/random/50");
   },
 
-  getBreedImages(breed) {
+  getFourBreedImages(breed) {
     if (breed.includes("-")) {
       //breed.replace("-", "/");
-      //return apiCall.get(`/breed/${breed.replace("-", "/")}/images/random/4`);
+      //return apiCall.get(`/breed/${breed}/images/random/4`);
     } else {
       return apiCall.get(`/breed/${breed}/images/random/4`);
     }
+  },
+
+  getBreedImages(breed) {
+    return apiCall.get(`/breed/${breed}/images`);
   }
 };

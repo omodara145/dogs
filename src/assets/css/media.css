@@ -49,4 +49,13 @@
   .dg-about--dog__title .dg-about--dog__image .el-carousel__container {
     height: 300px !important;
   }
+  .search-result .dg-nav {
+    flex-direction: column;
+  }
+  .el-select {
+    width: 88%;
+  }
+  .dg-header--content > div .el-button {
+    width: 18%;
+  }
 }

@@ -1,5 +1,9 @@
 <template>
-  <div class="dg-about" v-loading="loading" element-loading-background="rgb(255,255,255)">
+  <div
+    class="dg-about"
+    v-loading="loading"
+    element-loading-background="rgb(255,255,255)"
+  >
     <div class="dg-logo--two">
       <router-link to="/">
         <el-image :src="logo" class="dg-logo">
@@ -58,13 +62,26 @@ export default {
     },
     fetchBreedImages() {
       this.loading = true;
-      request
-        .getFourBreedImages(this.dogName)
-        .then(response => {
-          this.dogBreed = response.data.message;
-          this.fetchInfo();
-        })
-        .catch();
+
+      // Normally, at this point is where I convert the compound name breed into a format
+      // that would be valid for the endpoint, that is
+      // let breed = terrier-english;
+      // breed.replace('-', '/');
+      // but it is not allowing me. It keeps throwing an error (I've been experiencing this
+      // same error for a while now and I stilk have not found a standard solution.
+
+      if (!this.dogName.includes("-")) {
+        request
+          .getFourBreedImages(this.dogName)
+          .then(response => {
+            this.dogBreed = response.data.message;
+            this.fetchInfo();
+          })
+          .catch();
+      } else {
+        this.$message.info("No details for compound name breed");
+        this.$router.push({ name: "home" });
+      }
     },
     fetchInfo() {
       about

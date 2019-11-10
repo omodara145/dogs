@@ -35,7 +35,21 @@
       </div>
       <div class="dg-about--dog__content">
         <h3>About</h3>
-        <p>{{ aboutBreed }}</p>
+        <p v-if="aboutBreed.length > 10">{{ aboutBreed }}</p>
+        <p v-else>
+          More information about the <strong>{{ dogName }}</strong> can be found
+          <a
+            :href="`https://www.google.com/search?q=${dogName}+dog`"
+            target="_blank"
+            :style="{
+              color: '#FF9D00',
+              textDecoration: 'underline',
+              fontWeight: '500'
+            }"
+          >
+            here</a
+          >
+        </p>
       </div>
     </div>
   </div>
@@ -62,32 +76,22 @@ export default {
     },
     fetchBreedImages() {
       this.loading = true;
-
-      // Normally, at this point is where I convert the compound name breed into a format
-      // that would be valid for the endpoint, that is
-      // let breed = terrier-english;
-      // breed.replace('-', '/');
-      // but it is not allowing me. It keeps throwing an error (I've been experiencing this
-      // same error for a while now and I stilk have not found a standard solution.
-
-      if (!this.dogName.includes("-")) {
-        request
-          .getFourBreedImages(this.dogName)
-          .then(response => {
-            this.dogBreed = response.data.message;
-            this.fetchInfo();
-          })
-          .catch();
-      } else {
-        this.$message.info("No details for compound name breed");
-        this.$router.push({ name: "home" });
-      }
+      request
+        .getFourBreedImages(this.dogName)
+        .then(response => {
+          this.dogBreed = response.data.message;
+          this.fetchInfo();
+        })
+        .catch();
     },
     fetchInfo() {
       about
         .getInfo(this.dogName)
         .then(response => {
-          this.aboutBreed = response.data[2][0];
+          const about = response.data[2];
+          about.forEach(info => {
+            this.aboutBreed = `${this.aboutBreed} ${info}`;
+          });
           this.loading = false;
         })
         .catch();
